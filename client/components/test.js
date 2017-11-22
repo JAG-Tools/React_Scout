@@ -34,16 +34,48 @@ React.Component.prototype.componentWillMount = function() {
       }
     }
     // console.log(` Did Mount: ${this.constructor.name}`)
-    if (this.constructor.name === 'App') console.log(mytree);
-    
+    if (this.constructor.name === 'App') {
+      console.log(mytree);
+    }    
   }
  }
- return nodeList; 
+ return nodeList;
 }
 
+function changeLabels(obj) {
+  for (let property in obj) {
+   if (obj.hasOwnProperty(property)) {
+    if (typeof obj[property] == "object") {
+     //console.log( " it is an object ",  obj[property])
+     changeLabels(obj[property]);
+     if (property === "_children") {
+      obj["children"] = obj[property];
+      delete obj[property];
+     }
+    } else {
+ 
+     if (property === "label") {
+      obj["name"] = obj[property];
+      delete obj[property];
+     }
+ 
+     //console.log(property , "   " , obj[property]);
+ 
+    }
+ 
+   }
+ 
+  }
+ 
+ }
 
 
-const Component = React.Component;
+ const Component = React.Component;
+ 
+ export default reactComponents;
+ export { React, Component };
 
-export default reactComponents;
-export { React, Component };
+  
+
+
+

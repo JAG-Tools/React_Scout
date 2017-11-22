@@ -4,7 +4,7 @@ import './App.css';
 
 class App2 extends Component {
   render() {
-    console.log('hello')
+    console.log('App 2 hello')
     return (
       <div className="App">
         <HeaderX />

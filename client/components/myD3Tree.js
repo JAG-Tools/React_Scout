@@ -28,8 +28,8 @@ var svg = d3.select("body").append("svg")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  root = myTreeData;
-  console.log(root);
+  root = myTreeData[0];
+  console.log('this is my dummy tree', root);
   root.x0 = height / 2;
   root.y0 = 0;
 
