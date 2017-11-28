@@ -8,4 +8,4 @@ export default class App extends React.Component {
           <h1>Let's build this.....</h1>
         </div>)
     }
-}
+};
