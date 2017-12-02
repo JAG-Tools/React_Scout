@@ -1,0 +1,29 @@
+{
+    "name": "App",
+    "children": [{
+        "name": "HeaderX",
+        "children": [{
+            "name": "ImageHeaderX",
+            "size": 3938
+        }, {
+            "name": "AppTitleHeaderX",
+            "size": 7074
+        }]
+    },
+    {
+        "name":"AppIntro",
+        "size": 5842
+    },
+    {
+            "name": "FooterX",
+            "children": [{
+                "name": "ImageFooterX",
+                "size": 1983
+            }, {
+                "name": "AppTitleFooterX",
+                "size": 2047
+            }]
+       }
+     ]
+    }
+    
