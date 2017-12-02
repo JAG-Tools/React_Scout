@@ -44,12 +44,9 @@ React.Component.prototype.componentWillMount = function() {
 }
 
 
-let myTreeDummy = [{"name":"App","children":[{"name":"HeaderX","children":[{"name":"ImageHeaderX","children":[],"parent":"HeaderX"},{"name":"AppTitleHeaderX","children":[],"parent":"HeaderX"}],"parent":"App"},{"name":"AppIntro","children":[],"parent":"App"},{"name":"FooterX","children":[{"name":"ImageFooterX","children":[],"parent":"FooterX"},{"name":"AppTitleFooterX","children":[],"parent":"FooterX"}],"parent":"App"}]}]
-
-
  const Component = React.Component;
  
 //  export default Component;
- export { React, Component, myTreeDummy};
+ export { React, Component};
 
   

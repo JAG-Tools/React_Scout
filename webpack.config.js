@@ -13,7 +13,21 @@ module.exports = {
         path: path.resolve('dist'),
         filename: 'index_bundle.js'
     },
+    node: {
+        fs: 'empty',
+        net: 'empty'
+      },
+    
     module: {
+        unknownContextRegExp: /$^/,
+        unknownContextCritical: false,
+    
+        // Disable handling of requires with a single expression
+        exprContextRegExp: /$^/,
+        exprContextCritical: false,
+    
+        // Warn for every expression in require
+        wrappedContextCritical: true,
         loaders: [
             {test: /\.json$/, loader: 'json', exclude: /node_modules/},
             {test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/},
