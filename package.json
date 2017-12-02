@@ -2,7 +2,7 @@
   "name": "react-view-app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "webpack-dev-server"
   },
@@ -17,7 +17,11 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "body-parser": "^1.18.2",
+<<<<<<< HEAD
     "cors": "^2.8.4",
+=======
+    "express": "^4.16.2",
+>>>>>>> 8e0865af7b7cea609c887329c14f5ccabf0fc802
     "css-loader": "^0.28.7",
     "express": "^4.16.2",
     "fs": "0.0.1-security",
@@ -26,8 +30,14 @@
     "node-sass": "^4.7.2",
     "nodemon": "^1.12.1",
     "path": "^0.12.7",
+<<<<<<< HEAD
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+=======
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1",
+    "request": "^2.83.0",
+>>>>>>> 8e0865af7b7cea609c887329c14f5ccabf0fc802
     "react-logo": "^1.0.8",
     "react-scripts": "1.0.17",
     "request": "^2.79.0",
@@ -39,6 +49,10 @@
     "webpack-dev-server": "^2.9.4"
   },
   "devDependencies": {
+    "eslint": "^4.11.0",
+    "eslint-plugin-react": "^7.4.0",
+    "nodemon": "^1.12.1",
     "json-loader": "^0.5.7"
+
   }
 }

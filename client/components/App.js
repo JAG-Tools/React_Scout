@@ -27,4 +27,4 @@ export default class App extends React.Component {
           <div>{this.getDataRenderTree()}</div>
         </div>)
     }
-}
+};
