@@ -2,7 +2,7 @@
   "name": "react-scout",
   "version": "1.0.0",
   "description": "",
-  "main": "server/server.js",
+  "main": "lib/main/reactScout.js",
   "scripts": {
     "server": "nodemon server/server.js"
   },
