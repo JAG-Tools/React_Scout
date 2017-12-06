@@ -1,0 +1,28 @@
+body{
+  background:rgb(217, 217, 235);
+}
+.node {
+  cursor: pointer;
+}
+
+  .node rect {
+      /*fill: #fff;
+      stroke: steelblue; */
+      stroke-width: 3px;
+  }
+
+  .node text {
+      font: 12px sans-serif;
+      fill:black;
+  }
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 2px;
+}
+
+.tree {
+  margin-bottom: 10px;
+  overflow: auto;
+}
