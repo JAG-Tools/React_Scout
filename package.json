@@ -1,8 +1,11 @@
 {
   "name": "react-scout",
-  "version": "1.2.0",
+  "version": "1.0.2",
   "description": "",
-  "main": "lib/main/reactScout.js",
+  "main": "index.js",
+  "bin": {
+    "react-scout": "index.js"
+  },
   "scripts": {
     "server": "nodemon server/server.js"
   },

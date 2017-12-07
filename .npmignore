@@ -1,3 +1,4 @@
+.npmignore
 node_modules
 .babelrc
 .eslintrc
