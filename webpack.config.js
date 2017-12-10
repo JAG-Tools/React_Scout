@@ -16,7 +16,15 @@ module.exports = {
     module: {
         loaders: [
             {test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/},
-            {test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/}
+            {test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/},
+            {
+                test: /\.scss/,
+                use: ['style-loader','css-loader', {
+                    loader: 'postcss-loader',
+                    options: {
+                      plugins: () => [require('autoprefixer')]
+                    }}, 'sass-loader']
+            }
         ]
     },
     plugins: [HtmlWebpackPluginConfig]
