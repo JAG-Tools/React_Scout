@@ -36,9 +36,11 @@ class State {
       this.nodeList.push(new TreeNode(component.constructor.name));
       this.nodeIsComponent[component.constructor.name] = true;
     }
+    console.log("componentWillMount pushToList: ",component)
   }
 
   buildTree(component) {
+    console.log(" componentDidMount buildTree: ", component)
     const thisNode = ReactDOM.findDOMNode(component);
 
     if (!thisNode.className.toLowerCase().includes('react-scout-')) {
@@ -56,12 +58,12 @@ class State {
       this.addToParent(component);
     }
 //console.log(this.tree)
-    let obj = component.props;
-    console.log('obj', component.constructor.name)
-    for(let key in obj) {
-      console.log('this is the state', obj[key]);
-    }
-    console.log('props are here', component.props)
+    // let obj = component.props;
+    // console.log('obj', component.constructor.name)
+    // for(let key in obj) {
+    //   console.log('this is the state', obj[key]);
+    // }
+    // console.log('props are here', component.props)
 
      options.body = JSON.stringify(this.tree ? this.tree : {});
    //console.log(JSON.stringify(this.tree ? this.tree : {}))
@@ -89,6 +91,7 @@ class State {
     this.nodeList.splice(index, 1);
     currentNode.setParentName(this.nodeList[index - 1].name);
     this.nodeList[index - 1].children.push(currentNode);
+    //console.log("nodeList: ", this.nodeList)
   }
 
   addToParent(component) {
@@ -103,10 +106,11 @@ class State {
     treeNode.setParentName(parent);
     parentNode.children.push(treeNode);
     this.nodeIsComponent[component.constructor.name] = true;
-    console.log(this);
+    console.log("addToParent:",this);
   }
 
   removeFromTree(component) {
+    console.log("componentWillUnmount removeFromTree, ", component)
     const name = component.constructor.name;
     const child = this.tree.recursiveSearch(name);
     const parent = this.tree.recursiveSearch(child.parent);

@@ -56,7 +56,8 @@ function changeLabels(obj, result) {
    }
 
     render(){
-       return( <div ></div>)
+        console.log("tester :", this.props)
+       return( <div ><h1 >this is counter : {this.props.counter} </h1></div>)
     }
 }
 
@@ -157,15 +158,15 @@ export default class Applicable extends React.Component {
         )
       this.setState({colors} )
     }
-
-    componentWillMount(mount){
+/*
+   componentWillMount(mount){
         console.log("componentWillMount: ", this.state);
         this.setState( {tree: "tree has changed"} )
         console.log(" componentWillMount props: ", this.props);
         console.log(" componentWillMount mount: ", mount );
 
     }
-
+ 
    componentDidMount(prevMount){
         console.log("componentDidMount: ", this.state)
         //alert();
@@ -183,11 +184,13 @@ export default class Applicable extends React.Component {
         console.log(" componentDidUpdate props: ", this.props);
         console.log(" componentDidUpdate prevProps: ", prevProps);
     }
+
     componentWillReceiveProps(nextProps){
         console.log("I Will Receive Props:  ", this.state);
         console.log(" componentWillReceiveProps props: ", this.props);
         console.log(" componentWillReceiveProps prevProps: ", nextProps);
     }
+    */
 	changeLabels(obj, result){
 	    result ={name: "", children: ""};
     for (let property in obj) {
@@ -662,14 +665,15 @@ drawtree(my){
 	render(){
         const { addColor , rateColor, removeColor} = this 
         const {colors} = this.state;
+        const {counter} = this.state;
         return(
 			<div style = {{ textAlign : 'center'}} >
 				<h1> HELLO WORLDS!  </h1>
                 <button onClick= {this.callToDraw} >
                  ____________
                 </button>
-                <h1> {this.props.count}</h1>
-               <Tester ></Tester>
+               
+               <Tester counter = {this.state.counter} ></Tester>
                <Tester2 ></Tester2>
                <AddColorForm  onNewColor = {addColor}> </AddColorForm>
                <ColorList colors={colors}  onRate = {rateColor}  onRemove = {removeColor} ></ColorList>

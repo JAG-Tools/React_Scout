@@ -3,7 +3,7 @@ import render from "react-dom"
 
 
 //export default class tester3 extends react.Component(){
-export default class Tester4 extends  React.Component{
+export default class Tester12 extends  React.Component{
 
 
    /* constructor(props){
@@ -23,7 +23,8 @@ export default class Tester4 extends  React.Component{
                 <Tester15>  </Tester15>
                 <Tester16></Tester16>
                 <Tester17></Tester17>
-                <Tester22></Tester22>
+                <Tester18></Tester18>
+                
               </div>
         )
     }
@@ -114,13 +115,34 @@ class Tester17 extends  React.Component{
 
     render(){
        return( <div >
-      <Tester19></Tester19>
-      <Tester20></Tester20>
-      <Tester21></Tester21>
+     
+     
+      
         </div>)
     }
 }
+class Tester18 extends  React.Component{
 
+
+    constructor(props){
+
+    super(props);
+    this.state = {}
+    };
+
+   printName(){
+    console.log("printing!...")
+   }
+
+    render(){
+       return( <div >
+      <Tester19></Tester19>
+      <Tester20></Tester20>
+      <Tester21></Tester21>
+      <Tester22></Tester22>
+        </div>)
+    }
+}
 class Tester19 extends  React.Component{
 
 
