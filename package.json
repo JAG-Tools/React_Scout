@@ -6,7 +6,7 @@
   "bin": {
     "react-scout": "index.js"
   },
-  "author": "",
+  "author": "JAG",
   "license": "MIT",
   "dependencies": {
     "commander": "^2.12.2",
