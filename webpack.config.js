@@ -12,7 +12,14 @@ module.exports = {
     output: {
         path: path.resolve('dist'),
         filename: 'index_bundle.js'
-    },
+    },externals:{
+    "d3" : "https://d3js.org/d3.v3.min.js"
+  },
+node: {
+  fs :"empty",
+  net : "empty",
+  tls : "empty"
+},
     module: {
         loaders: [
             {test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/},

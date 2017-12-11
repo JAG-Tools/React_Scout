@@ -1,7 +1,7 @@
 //import React from "react"
 //import render from "react-dom"
-//import React, {Component} from "../../scout-main/reactScout.js"
-import React,{ Children } from 'react'
+import React, {Component} from "../../scout-main/reactScout.js"
+//import React,{ Children } from 'react'
 import ColorList from "./javi.jsx"
 import Tester4 from "./olaya.jsx"
 import Tester21 from "./ordonez.jsx"
@@ -9,7 +9,7 @@ import  $ from "jquery"
 import style from '../../stylesheets/Star.scss'
 import { v4 } from "uuid"
 
-const findChild =  (children, child) => {console.log("find children:,",children); return Children.toArray(children).filter(c=> c.type === child)[0];}
+/*const findChild =  (children, child) => {console.log("find children:,",children); return Children.toArray(children).filter(c=> c.type === child)[0];}
 const WhenTruthy = ({children}) => {console.log("when truthy children:,",children); return Children.only(children); }
 const WhenFalsy = ({children}) => {children.only(children);console.log(children)}
 
@@ -18,7 +18,7 @@ const Display = ({ifTruthy = true, children}) =>
     findChild(children, WhenTruthy):
     findChild(children, whenFalsy)
 
-    const age = 22;
+    const age = 22;*/
 
 function changeLabels(obj, result) {  
     result ={name: "", children: ""};
@@ -87,8 +87,10 @@ export default class Applicable extends React.Component {
 
     super(props);
     this.drawtree = this.drawtree.bind(this);
-    this.callToDraw =  this.callToDraw.bind(this)
-    this.addColor = this.addColor.bind(this)
+    this.callToDraw =  this.callToDraw.bind(this);
+    this.addColor = this.addColor.bind(this);
+    this.rateColor = this.rateColor.bind( this );
+    this.removeColor= this.removeColor.bind( this );    
     this.state = {
         tree : {},
         colors: [
@@ -127,6 +129,33 @@ export default class Applicable extends React.Component {
         this.setState({ colors })
     }
 
+    rateColor( id, rating ){
+      const colors = this.state.colors.map( color => 
+        (color.id !== id) ?
+          color :
+          {
+            "id": color.id,
+            "title": color.title,
+            "color": color.color,
+            "rating": rating
+
+            //the book gives you this and it does not work
+            /*
+            {
+                ...color, rating
+            }
+            */
+          }
+      )
+      this.setState( {colors }  )
+    }
+    
+    removeColor( id ){
+      const colors = this.state.colors.filter(
+        color => color.id !== id 
+        )
+      this.setState({colors} )
+    }
 
     componentWillMount(mount){
         console.log("componentWillMount: ", this.state);
@@ -630,7 +659,7 @@ drawtree(my){
 
 	}//end of drawtree
 	render(){
-        const { addColor } = this 
+        const { addColor , rateColor, removeColor} = this 
         const {colors} = this.state;
         return(
 			<div style = {{ textAlign : 'center'}} >
@@ -641,14 +670,14 @@ drawtree(my){
                <Tester ></Tester>
                <Tester2 ></Tester2>
                <AddColorForm  onNewColor = {addColor}> </AddColorForm>
-               <ColorList colors={colors} ></ColorList>
+               <ColorList colors={colors}  onRate = {rateColor}  onRemove = {removeColor} ></ColorList>
               {/* <Tester3></Tester3>*/}
                <Tester4></Tester4>
                <Tester21></Tester21>
-               <Display  ifTruthy={age>=21}>
+               {/*<Display  ifTruthy={age>=21}>
                  <WhenTruthy><h1>you can enter</h1></WhenTruthy>
                  <WhenFalsy><h1>you cannot enter</h1> </WhenFalsy>
-                </Display>
+                </Display>*/}
 
 			</div>
 		);
