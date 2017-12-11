@@ -45,7 +45,9 @@ program
                       const origIndex = path.join(reactFolder, '/index.js');
                       const tempIndex = path.join(temp, '/index.js');
                       const replIndex = path.join(__dirname, '/rind/index.js');
-                      fs.copy(origIndex, tempIndex);
+                      fs.copy(origIndex, tempIndex, (eind) => {
+                        if (eind) return console.log(eind);
+                      });
                       fs.copy(replIndex, origIndex);
                       // React DOM references React before we are done
                       // wrapping it so we will make a copy of React
@@ -59,7 +61,7 @@ program
 
                       fs.readFile(RDD, 'utf8', (erro, data) => {
                         if (erro) return console.log(erro);
-                        const aData = data.replace(/'react'/, "'./reactCopy.js'");
+                        const aData = data.replace(/require\('react'\)/, "require('./reactCopy.js')");
 
                         fs.writeFile(RDD, aData, 'utf8', (errs) => {
                           if (errs) console.log(errs);
@@ -75,7 +77,7 @@ program
         });
       }
     });
-    console.log('Command Line "react-scout stop" to remove react-scout from your project');
+    console.log('Command Line "react-scout done" to remove react-scout from your project');
   });
 program
   .command('done')
