@@ -10,6 +10,10 @@ const scoutCycle = {
   },
   componentWillUnmount: function() {
     state.removeFromTree(this);
+  },
+
+  componentWillReceiveProps: function() {
+     console.log('component Will Receive Props', this.constructor.name, this.state, this.props)
   }
 }
 

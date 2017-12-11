@@ -11,7 +11,7 @@ function wrapper(...args) {
 export default function(constructor) {
   const {
     // getDefaultProps, getInitialState, componentWillReceiveProps,
-    /*shouldComponentUpdate,*/ componentWillMount, componentDidMount,
+    /*shouldComponentUpdate,*/ componentWillReceiveProps, componentWillMount, componentDidMount,
     /* componentWillUpdate, componentDidUpdate,*/ componentWillUnmount,
     // render
   } = constructor.prototype;
@@ -19,6 +19,6 @@ export default function(constructor) {
   constructor.prototype.componentWillMount = wrapper(componentWillMount, scoutMethods.componentWillMount);
   constructor.prototype.componentDidMount = wrapper(componentDidMount, scoutMethods.componentDidMount);
   constructor.prototype.componentWillUnmount = wrapper(componentWillUnmount, scoutMethods.componentWillUnmount);
-
+ constructor.prototype.componentWillReceiveProps = wrapper(componentWillReceiveProps, scoutMethods.componentWillReceiveProps);
   return constructor;
 };

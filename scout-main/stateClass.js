@@ -56,6 +56,12 @@ class State {
       this.addToParent(component);
     }
 //console.log(this.tree)
+    let obj = component.props;
+    console.log('obj', component.constructor.name)
+    for(let key in obj) {
+      console.log('this is the state', obj[key]);
+    }
+    console.log('props are here', component.props)
 
      options.body = JSON.stringify(this.tree ? this.tree : {});
    //console.log(JSON.stringify(this.tree ? this.tree : {}))
@@ -70,6 +76,8 @@ class State {
   }
 
   nodeListToTree(component) {
+     // console.log(component.constructor.name, component.state);
+   
     let index;
     let currentNode = this.nodeList.find((node, i) => {
       if (node.name === component.constructor.name) {

@@ -93,6 +93,7 @@ export default class Applicable extends React.Component {
     this.removeColor= this.removeColor.bind( this );    
     this.state = {
         tree : {},
+        counter: 2,
         colors: [
         {
             "id": "0175d1f0-a8c6-41bf-8d02-df5734d829a4",
@@ -667,6 +668,7 @@ drawtree(my){
                 <button onClick= {this.callToDraw} >
                  ____________
                 </button>
+                <h1> {this.props.count}</h1>
                <Tester ></Tester>
                <Tester2 ></Tester2>
                <AddColorForm  onNewColor = {addColor}> </AddColorForm>
