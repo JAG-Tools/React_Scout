@@ -314,7 +314,7 @@ export default class Applicable extends React.Component {
 /*      
       console.log("draw tree")
       console.log("this:",this)*/
-    const t =this;
+    /*const t =this;*/
     var baseSvg = $("#tree-container").children().remove()//
     //console.log("baseSvg:",baseSvg)
 
