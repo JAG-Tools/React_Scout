@@ -36,11 +36,11 @@ class State {
       this.nodeList.push(new TreeNode(component.constructor.name));
       this.nodeIsComponent[component.constructor.name] = true;
     }
-    console.log("componentWillMount pushToList: ",component)
+    //console.log("componentWillMount pushToList: ",component)
   }
 
   buildTree(component) {
-    console.log(" componentDidMount buildTree: ", component)
+    //console.log(" componentDidMount buildTree: ", component)
     const thisNode = ReactDOM.findDOMNode(component);
 
     if (!thisNode.className.toLowerCase().includes('react-scout-')) {
@@ -57,7 +57,7 @@ class State {
     } else {
       this.addToParent(component);
     }
-//console.log(this.tree)
+ //console.log(this.tree)
     // let obj = component.props;
     // console.log('obj', component.constructor.name)
     // for(let key in obj) {
@@ -66,15 +66,20 @@ class State {
     // console.log('props are here', component.props)
 
      options.body = JSON.stringify(this.tree ? this.tree : {});
+    //localStorage.treeData = JSON.stringify(this.tree ? this.tree : {});
+    let t = this.tree ? this.tree : {};
+    //console.log("treeData:", JSON.stringify(t) );
+    localStorage.setItem( "treeData", JSON.stringify(t)  );
+
    //console.log(JSON.stringify(this.tree ? this.tree : {}))
-    request(options, function (error, response, body) {
+    /*request(options, function (error, response, body) {
       if (!error && response.statusCode === 200) {
         // Print out the response body
-        //console.log(response.body);
+        console.log(response.body);
       } else {
         console.log(`Didn't go through!`);
       }
-    });
+    });*/
   }
 
   nodeListToTree(component) {
@@ -106,11 +111,11 @@ class State {
     treeNode.setParentName(parent);
     parentNode.children.push(treeNode);
     this.nodeIsComponent[component.constructor.name] = true;
-    console.log("addToParent:",this);
+    //console.log("addToParent:",this);
   }
 
   removeFromTree(component) {
-    console.log("componentWillUnmount removeFromTree, ", component)
+    //console.log("componentWillUnmount removeFromTree, ", component)
     const name = component.constructor.name;
     const child = this.tree.recursiveSearch(name);
     const parent = this.tree.recursiveSearch(child.parent);

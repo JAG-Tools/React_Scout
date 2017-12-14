@@ -21,7 +21,7 @@ export default class Tester3 extends  React.Component{
                 <Tester4> </Tester4>
                 <Tester5></Tester5>
                 <Tester6></Tester6>
-                <Tester7>  </Tester7>
+                <Tester7></Tester7>
                 <Tester8></Tester8>
                 <Tester9></Tester9>
                 

@@ -56,8 +56,12 @@ function changeLabels(obj, result) {
    }
 
     render(){
-        console.log("tester :", this.props)
-       return( <div ><h1 >this is counter : {this.props.counter} </h1></div>)
+        //console.log("tester :", this.props)
+        //console.log("tester props.tree", this.props.tree)
+       return( 
+        <div >
+          <h1 >this is counter : {this.props.counter} and the tree holds {this.props.tree.name} </h1>
+        </div>)
     }
 }
 
@@ -88,12 +92,20 @@ export default class Applicable extends React.Component {
 
     super(props);
     this.drawtree = this.drawtree.bind(this);
-    this.callToDraw =  this.callToDraw.bind(this);
+    this.rerender = this.rerender.bind(this);
     this.addColor = this.addColor.bind(this);
     this.rateColor = this.rateColor.bind( this );
-    this.removeColor= this.removeColor.bind( this );    
+    this.removeColor = this.removeColor.bind( this );
+    this.addComponent =this.addComponent.bind(this);
+    this.deleteComponent =this.deleteComponent.bind(this);
+    this.filterOutId = this.filterOutId.bind(this);
+
     this.state = {
-        tree : {},
+        tree : {
+            id: 0,
+            name: "nothing",
+            children: "none"
+        },
         counter: 2,
         colors: [
         {
@@ -158,8 +170,95 @@ export default class Applicable extends React.Component {
         )
       this.setState({colors} )
     }
-/*
-   componentWillMount(mount){
+
+    addComponent(  name ){
+        const tree = [
+          ...this.state.tree,
+          {
+            name:"", 
+            children: "",
+            parent: "" ,
+            id: 0,
+            depth:0,
+            x:0,
+            y:0
+          }
+        ]
+        this.setState({ tree })
+    }
+
+    deleteComponent(nodeId ){
+
+        const colors = this.state.colors.filter(
+        color => color.id !== nodeId 
+        )
+      this.setState({colors} )
+
+      console.log("nodeId:",nodeId);
+
+      //console.log("this.state.tree[0]:",this.state.colors)
+      console.log("this.state.tree:",this.state.tree);
+
+      let tree = this.filterOutId(nodeId);
+
+    this.setState({tree: tree} );
+
+
+    }//end of delete
+
+    filterOutId(nodeId){
+
+    let tree ={name: this.state.tree.name, children: ""};
+    let obj = this.state.tree;
+
+             console.log("obj filter :", obj )
+     
+  
+
+    /*if(obj["children"]){
+        console.log( obj )
+            this.filterOutId( obj["children"]  )
+
+    }else return*/
+
+   /* for (let property in obj) {
+      if (obj.hasOwnProperty(property)) {
+          //console.log("obj: ", obj , "  obj[property]:", obj[property]     );
+          if (typeof obj[property] == "object"){
+          //console.log( " it is an object ",  obj)
+          
+          console.log("obj[property]", obj[property])
+          for (var i = 0; i < obj[property].length; i++) {
+              console.log("obj[property].id", obj[property][i].id);
+              //this.filterOutId(obj[property], tree);
+              if(obj[property][i].id !== nodeId ){
+              //console.log( " it is an object ",  obj)
+              tree.children = obj[property]; 
+              obj["children"] = obj[property]; 
+              //delete obj[property];      
+              }
+           } 
+          }
+          else{
+          //console.log("obj: ", obj     );
+            if(property === "label" ){
+              tree.name = obj[property]; 
+              obj["name"]=obj[property]; 
+              //delete obj[property];
+              
+                }
+              //console.log(property , "   " , obj[property]);
+              }
+          }
+    }*/
+    console.log("filter out node from tree:  " , tree)
+    
+    return tree;
+  
+    }//eof filterOutId
+
+
+/*   componentWillMount(mount){
         console.log("componentWillMount: ", this.state);
         this.setState( {tree: "tree has changed"} )
         console.log(" componentWillMount props: ", this.props);
@@ -178,19 +277,20 @@ export default class Applicable extends React.Component {
         console.log("I will update:  ", this.state);
         console.log(" componentWillUpdate props: ", this.props);
         console.log(" componentWillUpdate nextProps: ", nextProps)
-    }
-    componentDidUpdate(prevProps){
-        console.log("I did update:  ", this.state);
-        console.log(" componentDidUpdate props: ", this.props);
-        console.log(" componentDidUpdate prevProps: ", prevProps);
-    }
+    }*/
+    // componentDidUpdate(prevProps){
+    //     console.log("I did update:  ", this.state);
+    //     console.log(" componentDidUpdate props: ", this.props);
+    //     console.log(" componentDidUpdate prevProps: ", prevProps);
+    //     //console.log("this.state.tree:",this.state.colors)
+    // }
 
-    componentWillReceiveProps(nextProps){
-        console.log("I Will Receive Props:  ", this.state);
-        console.log(" componentWillReceiveProps props: ", this.props);
-        console.log(" componentWillReceiveProps prevProps: ", nextProps);
-    }
-    */
+    // componentWillReceiveProps(nextProps){
+    //     console.log("I Will Receive Props:  ", this.state);
+    //     console.log(" componentWillReceiveProps props: ", this.props);
+    //     console.log(" componentWillReceiveProps prevProps: ", nextProps);
+    // }
+    
 	changeLabels(obj, result){
 	    result ={name: "", children: ""};
     for (let property in obj) {
@@ -210,29 +310,63 @@ export default class Applicable extends React.Component {
     return result;
 	}
 
-	callToDraw(){ 
-/*
+	rerender(){ 
+/*      
       console.log("draw tree")
       console.log("this:",this)*/
     const t =this;
-    this.drawtree();
+    var baseSvg = $("#tree-container").children().remove()//
+    //console.log("baseSvg:",baseSvg)
+
+    let treeData = this.state.tree;
+    this.drawtree(treeData);
+    this.deleteComponent(11);
 	/*let my = fetch("http://localhost:9999/stateRetrieve", {
         method :"GET",
         headers: { "Content-Type" : "application/json" },
         //body: JSON.stringify({item: body})
     })
-	.then(function(response) { console.log(response); return response.json(); })
-	.then(function(json) {console.log("success: ",json); console.log(">>this:",t);t.drawtree(json) ;return json  } )
-	.catch(function(e) {console.log("error is: ", e)} )
+	.then(function(response) { 
+      console.log(response); 
+      return response.json(); 
+    })
+	.then(function(json) {
+      console.log("success: ", json); 
+      console.log(">>this:", t);
+      t.drawtree(json);
+      return json;
+    })
+	.catch(function(e) {
+      console.log("error is: ", e);
+    })
     */
-    }//end of callToDraw
+    }//end of rerender
 
-drawtree(my){ 
-    this.setState(this.state); console.log("drawtree")
-    let treeJSON = d3.json("http://localhost:9999/stateRetrieve", function(error, treeData) {
+drawtree(treeDa){ 
+
+    console.log("drawtree");
+    
+     let treeData = treeData ? treeDa : JSON.parse(localStorage.getItem("treeData") );
+    /*this.setState(this.state.tree);*/ 
+    this.setState({tree: treeData} )
+
+
+
+ /*   let treeData = [];
+
+    for(var x in treeDat){
+      treeData.push(treeDat[x]);
+    }*/
+    /*console.log( "treeData", treeData)
+    console.log("treeData[0]", treeData[0])*/
+    //let treeJSON = d3.json("http://localhost:9999/stateRetrieve", function(error, treeData) {
+
     //console.log("my:", my);
     // Calculate total nodes, max label length
      //treeData = my//changeLabels(my);
+    
+    //console.log(treeData)
+
     var totalNodes = 0;
     var maxLabelLength = 0;
     // variables for drag/drop
@@ -247,11 +381,19 @@ drawtree(my){
     var root;
 
     // size of the diagram
-    var viewerWidth = $(document).width();
+    var viewerWidth = $(document).width()/2;
     var viewerHeight = $(document).height();
+    //const treeData = localStorage.getItem("treeData");
+    //const treeData = JSON.stringify(localStorage.treeData);
 
-    var tree = d3.layout.tree()
+    //console.log( "treeData>>>>>>>", treeData)
+   /*var tree = d3.hierarchy(
+        treeData
+    )*/
+
+    var tree = d3.layout.tree(   )
         .size([viewerHeight, viewerWidth]);
+
 
     // define a d3 diagonal projection for use by the node paths later on.
     var diagonal = d3.svg.diagonal()
@@ -277,6 +419,7 @@ drawtree(my){
 
     // Call visit function to establish maxLabelLength
     visit(treeData, function(d) {
+        //console.log("D",d) 
         totalNodes++;
         maxLabelLength = Math.max(d.name.length, maxLabelLength);
 
@@ -294,34 +437,6 @@ drawtree(my){
     }
     // Sort the tree initially incase the JSON isn't in a sorted order.
     sortTree();
-
-    // TODO: Pan function, can be better implemented.
-
-    function pan(domNode, direction) {
-        var speed = panSpeed;
-        if (panTimer) {
-            clearTimeout(panTimer);
-            translateCoords = d3.transform(svgGroup.attr("transform"));
-            if (direction == 'left' || direction == 'right') {
-                translateX = direction == 'left' ? translateCoords.translate[0] + speed : translateCoords.translate[0] - speed;
-                translateY = translateCoords.translate[1];
-            } else if (direction == 'up' || direction == 'down') {
-                translateX = translateCoords.translate[0];
-                translateY = direction == 'up' ? translateCoords.translate[1] + speed : translateCoords.translate[1] - speed;
-            }
-            scaleX = translateCoords.scale[0];
-            scaleY = translateCoords.scale[1];
-            scale = zoomListener.scale();
-            svgGroup.transition().attr("transform", "translate(" + translateX + "," + translateY + ")scale(" + scale + ")");
-            d3.select(domNode).select('g.node').attr("transform", "translate(" + translateX + "," + translateY + ")");
-            zoomListener.scale(zoomListener.scale());
-            zoomListener.translate([translateX, translateY]);
-            panTimer = setTimeout(function() {
-                pan(domNode, speed, direction);
-            }, 50);
-        }
-    }
-
     // Define the zoom function for the zoomable tree
 
     function zoom() {
@@ -402,7 +517,7 @@ drawtree(my){
         }
     }
 
-    var overCircle = function(d) {
+   /* var overCircle = function(d) {
         selectedNode = d;
         updateTempConnector();
     };
@@ -437,7 +552,7 @@ drawtree(my){
         link.attr("d", d3.svg.diagonal());
 
         link.exit().remove();
-    };
+    };*/
 
     // Function to center node when clicked/dropped so node doesn't get lost when collapsing/moving with large amount of children.
 
@@ -645,20 +760,21 @@ drawtree(my){
             d.x0 = d.x;
             d.y0 = d.y;
         });
-    }
+    }//end of update
 
     // Append a group which holds all nodes and which the zoom Listener can act upon.
     var svgGroup = baseSvg.append("g");
 
     // Define the root
     root = treeData;
+    //console.log(">>>root", treeData);
     root.x0 = viewerHeight / 2;
     root.y0 = 0;
 
     // Layout the tree initially and center on the root node.
     update(root);
     centerNode(root);
-});
+ //});
 
 
 	}//end of drawtree
@@ -669,12 +785,15 @@ drawtree(my){
         return(
 			<div style = {{ textAlign : 'center'}} >
 				<h1> HELLO WORLDS!  </h1>
-                <button onClick= {this.callToDraw} >
-                 ____________
+                <button onClick= {this.drawtree} >
+                 graph
                 </button>
-               
-               <Tester counter = {this.state.counter} ></Tester>
+               <button onClick= {this.rerender} >
+                 rerender
+                </button>
+               <Tester counter = {this.state.counter}  tree = {this.state.tree}></Tester>
                <Tester2 ></Tester2>
+
                <AddColorForm  onNewColor = {addColor}> </AddColorForm>
                <ColorList colors={colors}  onRate = {rateColor}  onRemove = {removeColor} ></ColorList>
               {/* <Tester3></Tester3>*/}

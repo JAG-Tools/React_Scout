@@ -2,6 +2,7 @@ export default class TreeNode {
   constructor(name) {
     this.name = name;
     this.children = [];
+    //this.parent = null;
   }
 
   setParentName(parent) {

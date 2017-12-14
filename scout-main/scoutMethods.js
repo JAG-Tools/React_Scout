@@ -13,7 +13,7 @@ const scoutCycle = {
   },
 
   componentWillReceiveProps: function() {
-     console.log('component Will Receive Props', this.constructor.name, this.state, this.props)
+     //console.log('component Will Receive Props', this.constructor.name, this.state, this.props)
   }
 }
 

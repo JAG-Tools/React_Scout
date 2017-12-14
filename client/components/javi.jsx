@@ -4,20 +4,37 @@ import render from "react-dom"
 
 
 //export default class tester3 extends react.Component(){
-/*export default class Tester3 extends  React.Component{
-
+export default class ColorList extends  React.Component{
 
     constructor(props){
 
     super(props);
-    this.state = {}
+    console.log("colorList: ",props)
+    let {colors, onRate, onRemove } = props;
+    this.state = {
+      colors :colors,
+      onRate : onRate,
+      onRemove: onRemove
+    }
     };
     render(){
-       return( <div ></div>)
+      let {colors, onRate, onRemove } = this.props;
+       return(   
+        <div className = "color-list">       
+    {(colors.length === 0)?
+      <p>no colors listed . (add a color)</p>:
+      colors.map(color => 
+        <Color key = { color.id}
+          {...color}   
+          onRate = { (rating) => onRate( color.id, rating) }  
+          onRemove = {() => onRemove(color.id) }    />
+        )
     }
-}*/
+    </div>)
+    }
+}
 
-  const ColorList = ({ colors = [], onRate = f => f, onRemove = f => f  }) =>  
+  /*const ColorList = ({ colors = [], onRate = f => f, onRemove = f => f  }) =>  
    <div className="color-list">       
     {(colors.length === 0)?
       <p>no colors listed . (add a color)</p>:
@@ -28,8 +45,37 @@ import render from "react-dom"
           onRemove = {() => onRemove(color.id) }    />
         )
     }
-    </div>
-  
+    </div>*/
+ 
+/* class Color extends  React.Component{
+
+    constructor(props){
+
+    super(props);
+    console.log("colorList: ",props)
+    let {title, colors, rating = 0, onRemove= f => f, onRate = f => f } = props;
+    this.state = {
+      colors :colors,
+      onRate : onRate,
+      onRemove: onRemove
+      }
+    };  
+      render(){
+          return(
+      <section className = "color">
+      <h1> {title} </h1>
+      <button onClick = {onRemove} >x</button>
+
+      <div className = "color" style={ {backgroundColor : color }} > 
+      </div>
+      <div>
+        <StarRating starsSelected = {rating}  onRate = {onRate}></StarRating>
+      </div>
+    </section>
+         ) 
+      }
+
+}  */
     const Color = ({title, color, rating = 0, onRemove= f => f, onRate = f => f }) =>
     <section className = "color">
       <h1> {title} </h1>
@@ -67,5 +113,5 @@ import render from "react-dom"
         onClick : PropTypes.func
       }
 */
-    export default ColorList
+    //export default ColorList
  
