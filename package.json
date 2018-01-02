@@ -11,8 +11,6 @@
   "dependencies": {
     "commander": "^2.12.2",
     "fs-extra": "^4.0.3",
-    "path": "^0.12.7",
-    "react": "^16.1.1",
     "react-dom": "^16.1.1"
   },
   "devDependencies": {

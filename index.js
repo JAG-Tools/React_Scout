@@ -35,40 +35,49 @@ program
                   if (!reactDir.isDirectory()) {
                     throw new Error(`${reactFolder} is not a valid directory!`);
                   } else {
+
                     fs.copy(path.join(__dirname, '/lib'), path.join(reactFolder, '/lib'));
 
                     const temp = path.join(reactFolder, '/scout-temp');
 
-                    fs.ensureDir(temp, (err) => {
-                      if (err) console.log(err);
+                    fs.ensureDir(temp)
+                      .then(() => {
+                        const origIndex = path.join(reactFolder, '/index.js');
+                        const tempIndex = path.join(temp, '/index.js');
+                        const replIndex = path.join(__dirname, '/rind/index.js');
+                        fs.copy(origIndex, tempIndex)
+                          .then(() => console.log('Backed up react/index.js'))
+                          .catch(err => console.log(err));
 
-                      const origIndex = path.join(reactFolder, '/index.js');
-                      const tempIndex = path.join(temp, '/index.js');
-                      const replIndex = path.join(__dirname, '/rind/index.js');
-                      fs.copy(origIndex, tempIndex, (eind) => {
-                        if (eind) return console.log(eind);
-                      });
-                      fs.copy(replIndex, origIndex);
-                      // React DOM references React before we are done
-                      // wrapping it so we will make a copy of React
-                      // development and make react-dom require from
-                      // that copy instead Solution until we move away
-                      // from react-dom
-                      const ORC = path.join(nodeFolder, '/react-dom/cjs/reactCopy.js');
-                      const RDD = path.join(nodeFolder, '/react-dom/cjs/react-dom.development.js');
-                      const OR = path.join(reactFolder, '/cjs/react.development.js');
-                      fs.copy(OR, ORC);
+                        fs.copy(replIndex, origIndex)
+                          .then(() => console.log('rind/index.js => react/index.js'))
+                          .catch(err => console.log(err));
 
-                      fs.readFile(RDD, 'utf8', (erro, data) => {
-                        if (erro) return console.log(erro);
-                        const aData = data.replace(/require\('react'\)/, "require('./reactCopy.js')");
+                        // React DOM references React before we are done
+                        // wrapping it so we will make a copy of React
+                        // development and make react-dom require from
+                        // that copy instead. Solution until we move away
+                        // from react-dom
 
-                        fs.writeFile(RDD, aData, 'utf8', (errs) => {
-                          if (errs) console.log(errs);
-                        });
-                        return null;
-                      });
-                    });
+                        const ORC = path.join(nodeFolder, '/react-dom/cjs/reactCopy.js');
+                        const RDD = path.join(nodeFolder, '/react-dom/cjs/react-dom.development.js');
+                        const OR = path.join(reactFolder, '/cjs/react.development.js');
+
+                        fs.copy(OR, ORC)
+                          .then(() => console.log('/cjs/dev => react-dom/cjs/copy'))
+                          .catch(err => console.log(err));
+
+                        fs.readFile(RDD, 'utf8')
+                          .then((data) => {
+                            const aData = data.replace(/require\('react'\)/, "require('./reactCopy.js')");
+                            fs.writeFile(RDD, aData, 'utf8')
+                              .then(() => console.log('Changed react-dom require(react)'))
+                              .catch(err => console.log(err));
+                            return null;
+                          })
+                          .catch(err => console.log(err));
+                      })
+                      .catch(err => console.log(err));
                   }
                 }
               });
