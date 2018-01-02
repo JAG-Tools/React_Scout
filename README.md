@@ -1,7 +1,6 @@
 # React_Scout
 CSNY_1 Production project for Aum, Javi and Gustavo
 
-
 ##Technologies
 
 Node, d3, css, jquery, html, commander, fs-extra
@@ -24,8 +23,6 @@ When done, in your command line (and in the same directory) type react-scout don
 
 The developer will see a split screen with the target application on left and the react scout tree representing said application on the right. The developer is able to resize the window division in order to view either the application or the visualization more clearly.
 
-
-
 ##Technical challenges
 
 Developers need to be able to plug our tool into their application in development mode without the hassle of importing it into every component file. To achieve this React-Scout ensures that the user would have a minimally invasive way to use the tool. A way that would easily merge into their current workflow and only work when needed. Tracing all of React’s complex interactions without depending on internals and without requiring that the user add any additional code to their app. Making sure that the user could comfortably view the application as well as react-scouts visuals without requiring more screen real estate or extra windows. Tracking props as they passed through components so that the user has some idea of app internals.  Implementation of timeline feature in order to allow user to rewind and fast forward through user interaction cases and application state changes
@@ -40,4 +37,11 @@ Javier Olaya- Engineer. Render all components that are associated to each other 
 
 ##Current Goals
 
-We are currently working on a full rewrite of the main algorithms involved in getting data for the visualizations. We have also began to give some thought to cleaner and nicer looking graphics now that we are done looking at different methods of visualizing. This is all expected to be implemented for the following major (algorithm rewrites) and minor (graphical adjustments) updates.
+We are currently working on a full rewrite of the main algorithms involved in getting data for the visualizations. We have also began to give some thought to cleaner and nicer looking graphics now that we are done looking at different methods of visualizing. Lastly, we are ensuring that the CLI works even whne react-scout is called on multiple project folders. This is all expected to be implemented for the following minor (algorithm rewrites) and patch (graphical adjustments, CLI adjustments) updates.
+
+##Getting started
+
+1. Install react-scout globally
+2. On your command line and within your project directory type react-scout begin
+3. Start up your app
+4. When you no longer wish to see the visualization pop up alongside the application, simply type the command react-scout done (within the same directory)
